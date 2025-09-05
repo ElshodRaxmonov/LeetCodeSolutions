@@ -1,10 +1,6 @@
 # My solution
-# Runtime : 477ms
+# Runtime : 510ms
 
-SELECT
-  product_id
-FROM
-  products
-WHERE
-  low_fats = 'Y'
-  AND recyclable = 'Y';
+SELECT name
+FROM customer
+WHERE referee_id!=2 OR referee_id IS NULL;
