@@ -50,6 +50,9 @@ public class Solution {
     }
 
 
-
+public static void main(String[] args) {
+    strStrSubstring("null", "null");
+    System.out.println("Assalamu alaykum");
+}
 
 }
