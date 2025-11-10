@@ -1,58 +1,60 @@
 package studyplan.programmingskills.easy_283;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Solution {
 
-    /*  My Solution second way attempt after using substring
-     *  Runtime: 0ms
-     *  Memory: 41.86
+    /*  My Solution
+     *  Runtime: 117ms
+     *  Memory: 47.79MB
      */
-    public static int strStrSubstring(String haystack, String needle) {
-        int start = -1;
-        int until = needle.length();
-        if (haystack.length() < needle.length()) {
-            return -1;
+    public static void moveZeroes(int[] nums) {
+        int count = 0;
+        for (int i : nums) {
+            if (i == 0) {
+                count++;
+            }
         }
-        for (int i = 0; i < haystack.length(); i++) {
-            if (haystack.charAt(i) == needle.charAt(0) && start == -1) {
-                start = i;
 
-                if (start + until <= haystack.length() &&
-                        haystack.substring(start, start + until).equals(needle)) {
-                    return i;
-                } else {
-                    start = -1;
+        while (count > 0) {
+            for (int x = 1; x < nums.length; x++) {
+                if (nums[x - 1] == 0) {
+                    int temp = nums[x - 1];
+                    nums[x - 1] = nums[x];
+                    nums[x] = temp;
                 }
             }
-
+            count--;
         }
-        return start;
     }
-    /*  Solution with Java indexOf() function
-     *  Runtime: 0ms
-     *  Memory: 41.53
+
+    /*  ChatGpt Solution
+     *  Runtime: 3ms
+     *  Memory: 47.82MB
      */
-    public static int strStrSubstring2(String haystack, String needle) {
-        return haystack.indexOf(needle);
-    }
-    /*  Solutions of others
-     *  Runtime: 0ms
-     *  Memory: 41.99
-     */
-    public static int strStrSubstring3(String haystack, String needle) {
-        for(int i = 0, j = needle.length(); j<=haystack.length(); i++,j++){
-            if(haystack.substring(i,j).equals(needle)){
-                return i;
+    public static void moveZeroes1(int[] nums) {
+        int lastNonZero = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                if (i != lastNonZero) {
+                    int temp = nums[lastNonZero];
+                    nums[lastNonZero] = nums[i];
+                    nums[i] = temp;
+                }
+                lastNonZero++;
             }
         }
-        return -1;
     }
 
 
-public static void main(String[] args) {
-    strStrSubstring("null", "null");
-    System.out.println("Assalamu alaykum");
-}
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 0, 3, 12};
+        moveZeroes(nums);
+        System.out.println(Arrays.toString(nums));
+    }
 
 }
