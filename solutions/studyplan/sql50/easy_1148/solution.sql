@@ -1,25 +1,15 @@
 # My solution first way
-# Runtime : 363ms
+# Runtime : 1005ms
 
-SELECT  author_id as id
-FROM Views
-WHERE author_id = viewer_id
-GROUP BY author_id
-ORDER BY author_id ASC;
-
-# My solution second way
-# Runtime : 379ms
-
-SELECT DISTINCT author_id as id
-FROM Views
-WHERE author_id = viewer_id
-ORDER BY author_id ASC;
-
-# Solution in Leetcode
-# Runtime : 357ms
-
-select author_id as id
-from views
-group by author_id
-having count(case when author_id=viewer_id then 1 end) >0
-order by id asc
+SELECT
+    s.student_id,
+    s.student_name,
+    sub.subject_name,
+    COUNT(e.student_id) AS attended_exams
+FROM Students AS s
+         CROSS JOIN Subjects AS sub
+         LEFT JOIN Examinations AS e
+                   ON s.student_id = e.student_id
+                       AND sub.subject_name = e.subject_name
+GROUP BY s.student_id, s.student_name, sub.subject_name
+ORDER BY s.student_id, sub.subject_name;
